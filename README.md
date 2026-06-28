@@ -22,11 +22,17 @@ here; the application is developed in a separate, private repository.
 
 ## Demo
 
+<div align="center">
+
 https://github.com/user-attachments/assets/2ee3da0a-fbad-4ea5-bbc6-603ed364708c
+
+</div>
 
 ## Downloads
 
-Grab the installer for your platform from the **Releases** page:
+**➡️ [Download the latest version from the Releases page](https://github.com/furan917/Loresight-releases/releases)**
+
+Then pick the file for your platform:
 
 - Windows: `Loresight Setup <version>.exe`
 - macOS: `Loresight-<version>.dmg`
