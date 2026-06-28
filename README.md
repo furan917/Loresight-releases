@@ -39,4 +39,37 @@ Then pick the file for your platform:
 - Linux: `Loresight-<version>.AppImage` (or the `.deb`)
 - Android: `loresight-<version>.apk`
 
+## Installing
+
+The builds aren't code-signed yet, so each platform will warn you that the app is from an unidentified developer. That's expected. Here's how to get past it.
+
+**Windows**
+
+1. Run `Loresight Setup <version>.exe`.
+2. If SmartScreen pops up, click **More info** then **Run anyway**.
+3. Follow the installer.
+
+**macOS**
+
+1. Open the `.dmg` and drag Loresight into Applications.
+2. The first time you launch it, right-click the app and choose **Open**, then confirm. A normal double-click will be blocked by Gatekeeper until you do this once.
+
+**Linux**
+
+AppImage:
+
+1. Make it executable: `chmod +x Loresight-<version>.AppImage`
+2. Run it: `./Loresight-<version>.AppImage`
+
+Debian/Ubuntu (`.deb`):
+
+1. `sudo dpkg -i loresight_<version>_amd64.deb`
+2. If it complains about dependencies: `sudo apt-get install -f`
+
+**Android**
+
+1. Download the `.apk` to your device.
+2. Open it. Android will ask you to allow installs from this source, so enable it for your browser or file manager.
+3. Tap install.
+
 Loresight is proprietary software. See `LICENSE`.
