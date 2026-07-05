@@ -63,7 +63,7 @@ AppImage:
 
 Debian/Ubuntu (`.deb`):
 
-1. `sudo dpkg -i loresight_<version>_amd64.deb`
+1. `sudo dpkg -i loresight-desktop_<version>_amd64.deb`
 2. If it complains about dependencies: `sudo apt-get install -f`
 
 **Android**

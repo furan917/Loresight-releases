@@ -20,8 +20,8 @@ content and, if you enable it, produce a session transcript and notes.
 
 - The microphone is used **only while you actively turn listening on**, and a clear indicator shows
   when it is active.
-- Audio is **processed entirely on your device** by offline speech engines (Vosk and Whisper). It is
-  **never uploaded** anywhere.
+- Audio is **processed entirely on your device** by offline speech engines (sherpa-onnx, Vosk, and
+  Whisper). It is **never uploaded** anywhere.
 - **Raw audio is not stored.** It is processed in memory and discarded. Only the text you choose to
   keep (a transcript and/or consolidated notes) is saved, and it is saved **locally on your device**.
 
