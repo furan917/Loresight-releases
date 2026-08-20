@@ -34,9 +34,9 @@ https://github.com/user-attachments/assets/2ee3da0a-fbad-4ea5-bbc6-603ed364708c
 
 Then pick the file for your platform:
 
-- Windows: `Loresight Setup <version>.exe`
+- Windows (most PCs): `Loresight Setup <version>-x64.exe` — or `Loresight Setup <version>-arm64.exe` for Windows-on-ARM
 - macOS: `Loresight-<version>.dmg`
-- Linux: `Loresight-<version>.AppImage` (or the `.deb`)
+- Linux: `Loresight-<version>.AppImage` (or the `.deb`) — or the `-arm64` / `_arm64` files for ARM64 machines
 - Android: `loresight-<version>.apk`
 
 ## Installing
@@ -45,7 +45,7 @@ The builds aren't code-signed yet, so each platform will warn you that the app i
 
 **Windows**
 
-1. Run `Loresight Setup <version>.exe`.
+1. Run `Loresight Setup <version>-x64.exe` (or the `-arm64` one if you're on a Windows-on-ARM device).
 2. If SmartScreen pops up, click **More info** then **Run anyway**.
 3. Follow the installer.
 
