@@ -6,6 +6,8 @@
 
 Loresight is a fully offline local-only companion for tabletop RPGs that I built to keep every quick reference I need at the table in one place. 
 
+Google Play Store [Download](https://play.google.com/store/apps/details?id=com.loresight.app)
+
 It's main purpose was to allow me to check up entities on the fly when I or a player speaks them (e.g spells/magic items) to save me stopping the game to look up what I forgot - instead the app would hear the spoken word and the tile would surface for me to click on if I needed it.  
 
 It can also transcribe full sessions to a note. and you can browse/search every entity included in seconds. 
