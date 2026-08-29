@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Loresight is a free, fully offline TTRPG companion that hears spells, monsters and items spoken at the table and puts them one tap away.">
+<link rel="icon" href="icon.png">
+<title>Loresight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #FAF6E8;
+    --paper-deep: #F1EAD3;
+    --card: #FCF9F0;
+    --ink: #1B3A2B;
+    --ink-soft: #55685B;
+    --rule: #DDD5BC;
+    --gold: #C8A21C;
+    --gold-text: #8E6600;
+    --gold-wash: #F3E6B5;
+    --on-gold: #1B3A2B;
+    --green-band: #F3E6B5;
+    --green-band-text: #1B3A2B;
+    --green-band-muted: #55685B;
+    --green-band-rule: #E2CF86;
+    --shadow: 0 18px 50px -24px rgba(27, 58, 43, 0.45);
+    --shot-light: block;
+    --shot-dark: none;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold-text); text-decoration-color: var(--gold); text-underline-offset: 3px; }
+  a:hover { color: var(--ink); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+  h1, h2, h3 { font-family: "Fraunces", "Iowan Old Style", Georgia, serif; font-variation-settings: "SOFT" 50; text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.01em; }
+  h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.2; }
+  p { margin: 0; max-width: 62ch; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-text);
+    font-weight: 500;
+  }
+  .lede { font-size: 1.2rem; color: var(--ink-soft); }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+  /* ---- header ---- */
+  header.top { padding-block: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .brand img { width: 40px; height: 40px; border-radius: 10px; }
+  .brand span { font-family: "Fraunces", Georgia, serif; font-size: 1.35rem; font-weight: 600; }
+  nav.links { display: flex; gap: 22px; flex-wrap: wrap; font-weight: 500; }
+  nav.links a { color: var(--ink); text-decoration: none; }
+  nav.links a:hover { color: var(--gold-text); }
+
+  /* ---- hero ---- */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+    gap: 48px; align-items: center; padding-block: 40px 72px;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--gold-text); }
+  .hero .lede { margin-top: 20px; max-width: 48ch; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px;
+    font-weight: 700; text-decoration: none; border: 2px solid transparent; font-size: 1rem; line-height: 1;
+  }
+  .btn.primary { background: var(--gold); color: var(--on-gold); }
+  .btn.primary:hover { filter: brightness(1.06); color: var(--on-gold); }
+  .btn.ghost { border-color: var(--rule); color: var(--ink); background: var(--card); }
+  .btn.ghost:hover { border-color: var(--gold); }
+  .hero-notes { margin-top: 22px; display: flex; gap: 8px 22px; flex-wrap: wrap; color: var(--ink-soft); font-size: 0.95rem; }
+  .hero-notes span::before { content: "✓"; color: var(--gold-text); margin-right: 6px; font-weight: 700; }
+
+  .phone-stage { display: flex; justify-content: center; }
+  .phone {
+    position: relative; width: min(300px, 100%); aspect-ratio: 390 / 844; border-radius: 40px;
+    background: var(--ink); padding: 10px; box-shadow: var(--shadow);
+  }
+  .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; display: block; background: #000; }
+  .phone-caption { margin-top: 14px; text-align: center; color: var(--ink-soft); font-size: 0.9rem; }
+  .phone-caption a { white-space: nowrap; }
+
+  /* ---- listening mechanism ---- */
+  .band { background: var(--green-band); color: var(--green-band-text); padding-block: 64px; }
+  .band .eyebrow { color: var(--gold-text); }
+  .band .lede { color: var(--green-band-muted); }
+  .mech { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 40px; margin-top: 36px; align-items: start; }
+  .transcript {
+    background: var(--card); border: 1px solid var(--green-band-rule); border-radius: 14px; padding: 22px 24px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.98rem; line-height: 1.75;
+  }
+  .transcript .who { color: var(--green-band-muted); }
+  .transcript .line { display: block; margin-bottom: 10px; }
+  .transcript .line:last-child { margin-bottom: 0; }
+  .transcript .hit {
+    background: var(--gold); color: var(--on-gold); border-radius: 5px; padding: 1px 6px; font-weight: 500;
+  }
+  .listening { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-text); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .listening i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-text); display: inline-block; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.35; transform: scale(0.7);} }
+  @media (prefers-reduced-motion: reduce) { .listening i { animation: none; } }
+
+  .tiles { display: grid; gap: 14px; }
+  .tile {
+    background: #FFFFFF; color: var(--ink); border-radius: 12px; padding: 16px 18px; border: 1px solid var(--rule);
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline;
+  }
+  .tile h3 { font-size: 1.15rem; }
+  .tile .kind { grid-column: 1 / -1; color: var(--ink-soft); font-size: 0.9rem; }
+  .tile .stats { grid-column: 1 / -1; display: flex; gap: 6px 18px; flex-wrap: wrap; margin-top: 8px; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  .tile .stats b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-text); margin-right: 6px; }
+  .tile .t { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.75rem; color: var(--ink-soft); }
+  .mech-note { margin-top: 26px; color: var(--green-band-muted); max-width: 70ch; font-size: 1rem; }
+  .mech-note strong { color: var(--green-band-text); font-weight: 500; }
+
+  /* ---- modes ---- */
+  section.plain { padding-block: 72px; }
+  .modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 36px; }
+  .mode { border-top: 3px solid var(--gold); padding-top: 18px; }
+  .mode .mono { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.06em; }
+  .mode h3 { margin-top: 6px; }
+  .mode p { margin-top: 10px; color: var(--ink-soft); font-size: 1.02rem; }
+
+  /* ---- codex + systems ---- */
+  .codex { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 40px; align-items: center; }
+  .shot { border-radius: 14px; border: 1px solid var(--rule); box-shadow: var(--shadow); overflow: hidden; background: var(--card); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot .light { display: var(--shot-light); }
+  .shot .dark { display: var(--shot-dark); }
+  table.systems { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: 1rem; }
+  table.systems th, table.systems td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.systems th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-text); }
+  table.systems td.n { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.95rem; }
+  table.systems td small { display: block; color: var(--ink-soft); font-size: 0.88rem; }
+  .systems-note { margin-top: 16px; color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---- privacy ---- */
+  .privacy { background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 34px 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: center; }
+  .privacy ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .privacy li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+  .privacy li b { color: var(--gold-text); font-family: "Fraunces", serif; font-size: 1.3rem; line-height: 1; }
+  .privacy li span { color: var(--ink-soft); }
+  .privacy li span strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- downloads ---- */
+  .dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-top: 32px; }
+  .dl a { display: block; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 18px 20px; text-decoration: none; color: var(--ink); transition: border-color .15s ease; }
+  .dl a:hover { border-color: var(--gold); }
+  .dl .os { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; }
+  .dl .file { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 0.85rem; font-family: "IBM Plex Mono", ui-monospace, monospace; word-break: break-word; }
+  .dl-note { margin-top: 20px; color: var(--ink-soft); font-size: 0.95rem; max-width: 70ch; }
+
+  footer { border-top: 1px solid var(--rule); padding-block: 32px 48px; color: var(--ink-soft); font-size: 0.92rem; display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
+  footer > span:first-child { max-width: 62ch; }
+  footer > span:last-child { white-space: nowrap; }
+
+  /* ---- import / export ---- */
+  .import { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  .modes-list { display: grid; gap: 14px; margin-top: 26px; }
+  .imode { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 18px; }
+  .imode .pill { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--gold); color: var(--on-gold); border-radius: 999px; padding: 4px 10px; white-space: nowrap; margin-top: 3px; font-weight: 500; }
+  .imode p { font-size: 1rem; color: var(--ink-soft); }
+  .imode p strong { color: var(--ink); font-weight: 600; }
+  .skeleton { margin-top: 22px; background: var(--ink); color: var(--paper); border-radius: 12px; padding: 18px 20px; overflow-x: auto; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.82rem; line-height: 1.55; }
+  .skeleton .k { color: var(--gold); }
+  .skeleton .c { color: #AEB7A6; }
+  .skeleton-cap { margin-top: 10px; color: var(--ink-soft); font-size: 0.9rem; }
+
+  /* ---- faq ---- */
+  .faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 30px; }
+  .faq details { border-top: 1px solid var(--rule); padding-block: 14px; }
+  .faq details:last-child, .faq details:nth-last-child(2) { border-bottom: 1px solid var(--rule); }
+  .faq summary { cursor: pointer; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--gold-text); font-weight: 400; font-size: 1.3rem; line-height: 1; flex: none; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
+  .faq details p { margin-top: 10px; color: var(--ink-soft); font-size: 1rem; max-width: 56ch; }
+  .faq details p code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.85em; background: var(--gold-wash); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+
+  @media (max-width: 860px) {
+    .hero, .mech, .codex, .privacy { grid-template-columns: 1fr; }
+    .modes, .import, .faq { grid-template-columns: 1fr; }
+    .faq details:nth-last-child(2) { border-bottom: 0; }
+    .hero { padding-block: 24px 56px; gap: 36px; }
+    .phone-stage { order: -1; }
+    .privacy { padding: 26px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top" id="top"><img src="icon.png" alt="" width="40" height="40"><span>Loresight</span></a>
+    <nav class="links" aria-label="Page">
+      <a href="#listening">How it listens</a>
+      <a href="#codex">Codex</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#download">Download</a>
+      <a href="#import">Your content</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Offline companion for tabletop RPGs</div>
+      <h1 style="margin-top:14px">The rulebook that hears <em>what your table says.</em></h1>
+      <p class="lede">Loresight listens to the game, spots spells, monsters and items as they're spoken, and puts them one tap away. So you stop flipping pages and keep the story moving.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://github.com/furan917/Loresight-releases/releases">Download for desktop &amp; Android</a>
+        <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.loresight.app">Google Play</a>
+      </div>
+      <div class="hero-notes">
+        <span>Runs entirely on your device</span>
+        <span>No account, no server</span>
+        <span>Audio is never saved</span>
+      </div>
+    </div>
+    <div>
+      <div class="phone-stage">
+        <div class="phone">
+          <video src="demo.mp4" autoplay muted loop playsinline aria-label="Loresight listening during a session and surfacing entity tiles"></video>
+        </div>
+      </div>
+      <p class="phone-caption">GM Assistant on Android. The desktop app shows the same tiles on a wide dashboard. <a href="https://github.com/furan917/Loresight-releases#demo">Open the demo</a></p>
+    </div>
+  </section>
+</div>
+
+<section class="band" id="listening">
+  <div class="wrap">
+    <div class="eyebrow">How it listens</div>
+    <h2 style="margin-top:12px">Someone says a name. A tile appears.</h2>
+    <p class="lede" style="margin-top:14px">Speech is turned into text on the device and matched against the names in your active system. Nothing else is recognised, nothing is uploaded, and the audio is discarded the moment it's transcribed.</p>
+
+    <div class="mech">
+      <div>
+        <div class="listening"><i></i> Listening · Dungeons &amp; Dragons 5e</div>
+        <div class="transcript" aria-label="Example transcript with spotted names highlighted">
+          <span class="line"><span class="who">GM</span> the water churns and an <span class="hit">aboleth</span> rises from the flooded hall</span>
+          <span class="line"><span class="who">Player</span> I'm still under <span class="hit">bless</span> right? then I cast <span class="hit">phantasmal force</span> on it</span>
+          <span class="line"><span class="who">GM</span> it makes the save. it reaches for you with a tentacle</span>
+          <span class="line"><span class="who">Player</span> can I use my <span class="hit">cloak of displacement</span></span>
+        </div>
+      </div>
+      <div class="tiles" aria-label="Tiles surfaced from the transcript">
+        <div class="tile">
+          <h3>Aboleth</h3><span class="t">Monster</span>
+          <span class="kind">Large aberration, lawful evil</span>
+          <div class="stats"><span><b>CR</b>10</span><span><b>AC</b>17 (natural armor)</span><span><b>HP</b>135 (18d10+36)</span><span><b>Speed</b>10 ft., swim 40 ft.</span></div>
+        </div>
+        <div class="tile">
+          <h3>Phantasmal Force</h3><span class="t">Spell</span>
+          <span class="kind">2nd-level illusion</span>
+          <div class="stats"><span><b>Cast</b>1 action</span><span><b>Range</b>60 feet</span><span><b>Duration</b>Concentration, up to 1 minute</span></div>
+        </div>
+        <div class="tile">
+          <h3>Bless</h3><span class="t">Spell</span>
+          <span class="kind">1st-level enchantment</span>
+          <div class="stats"><span><b>Cast</b>1 action</span><span><b>Range</b>30 feet</span><span><b>Duration</b>Concentration, up to 1 minute</span></div>
+        </div>
+        <div class="tile">
+          <h3>Cloak of Displacement</h3><span class="t">Magic item</span>
+          <span class="kind">Wondrous item, rare (requires attunement)</span>
+        </div>
+      </div>
+    </div>
+    <p class="mech-note"><strong>Common words stay spottable.</strong> Bless, Shield, Command and Light are all real spells, so Loresight is tuned to surface them rather than hide them. A stray tile costs a glance. A missing one costs the game a pause.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="plain">
+    <div class="eyebrow">Three ways to run it</div>
+    <h2 style="margin-top:12px">Pick how much help you want tonight.</h2>
+    <div class="modes">
+      <div class="mode">
+        <div class="mono">MIC OFF</div>
+        <h3>Codex</h3>
+        <p>Browse and search every entity in the active system. Filter by type, open a full sheet, follow cross-references between entries.</p>
+      </div>
+      <div class="mode">
+        <div class="mono">MIC ON</div>
+        <h3>GM Assistant</h3>
+        <p>Live listening. Spoken names become tiles on a running dashboard with scrollable history, so you can tap back to that monster from ten minutes ago.</p>
+      </div>
+      <div class="mode">
+        <div class="mono">MIC ON · TRANSCRIPT</div>
+        <h3>Notetaker</h3>
+        <p>Everything GM Assistant does, plus a full session transcript with speaker-change markers, consolidated into a saved session note when you stop.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plain codex" id="codex" style="padding-top:0">
+    <div>
+      <div class="eyebrow">What's inside</div>
+      <h2 style="margin-top:12px">Four systems on day one. Add your own.</h2>
+      <p class="lede" style="margin-top:14px">Every system is data, not code. The shipped packs include only what each licence allows, and the same importer takes your homebrew or content you own.</p>
+      <table class="systems">
+        <thead><tr><th>System</th><th>Edition</th><th style="text-align:right">Entries</th></tr></thead>
+        <tbody>
+          <tr><td>Dungeons &amp; Dragons 5e</td><td>SRD 5.1</td><td class="n">1,193</td></tr>
+          <tr><td>Dungeons &amp; Dragons 5e (2024)</td><td>SRD 5.2</td><td class="n">990</td></tr>
+          <tr><td>Pathfinder 2e</td><td>Remaster (ORC)</td><td class="n">6,089</td></tr>
+          <tr><td>Daggerheart</td><td>SRD 1.0</td><td class="n">535</td></tr>
+        </tbody>
+      </table>
+      <p class="systems-note">Systems never mix: search, browse and listening vocabulary are scoped to the one you've picked. Switch with the dropdown in the sidebar.</p>
+    </div>
+    <div class="shot">
+      <img class="light" src="codex.jpg" alt="Loresight Codex on desktop: the Monsters list for D&amp;D 5e with the Aboleth sheet open, showing CR 10, AC 17, HP 135 and its traits" width="1100" height="619">
+      <img class="dark" src="codex-dark.jpg" alt="Loresight Codex in dark mode: the Monsters list for D&amp;D 5e with the Aboleth sheet open" width="1100" height="619">
+    </div>
+  </section>
+
+  <section class="plain" id="privacy" style="padding-top:0">
+    <div class="privacy">
+      <div>
+        <div class="eyebrow">Privacy</div>
+        <h2 style="margin-top:12px">Your table stays at your table.</h2>
+        <p class="lede" style="margin-top:14px">Loresight works with networking switched off. There is nothing to sign up for and nowhere for your session to go.</p>
+      </div>
+      <ul>
+        <li><b>✦</b><span><strong>Speech recognition runs on the device.</strong> Live spotting uses Vosk; session notes use Whisper. Neither needs the internet.</span></li>
+        <li><b>✦</b><span><strong>Audio is transcribed and discarded.</strong> No recording is ever written to disk, which is also why transcripts mark speaker changes rather than naming people.</span></li>
+        <li><b>✦</b><span><strong>Your notes and imports live in a local database.</strong> Export them as a content pack whenever you like. Nothing syncs unless you copy it yourself.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="plain" id="download" style="padding-top:0">
+    <div class="eyebrow">Download</div>
+    <h2 style="margin-top:12px">Free to try on every platform you play on.</h2>
+    <p class="lede" style="margin-top:14px">Android is the primary target and the best-tested build. Tablets, Windows, macOS and Linux are supported from the same codebase.</p>
+    <div class="dl">
+      <a href="https://github.com/furan917/Loresight-releases/releases"><span class="os">Windows</span><span class="file">Loresight Setup &lt;version&gt;-x64.exe<br>-arm64.exe for Windows on ARM</span></a>
+      <a href="https://github.com/furan917/Loresight-releases/releases"><span class="os">macOS</span><span class="file">Loresight-&lt;version&gt;-x64.dmg<br>-arm64.dmg for Apple silicon</span></a>
+      <a href="https://github.com/furan917/Loresight-releases/releases"><span class="os">Linux</span><span class="file">.AppImage or .deb<br>amd64 and arm64</span></a>
+      <a href="https://play.google.com/store/apps/details?id=com.loresight.app"><span class="os">Android</span><span class="file">Get it on Google Play<br>or sideload the .apk from Releases</span></a>
+    </div>
+    <p class="dl-note"><strong>About the "unidentified developer" warning.</strong> Loresight is a one-person project with no budget for the code-signing certificates Windows and Apple charge for, so SmartScreen and Gatekeeper will warn you on first launch. The app is exactly the same either way. The <a href="https://github.com/furan917/Loresight-releases#installing">install notes</a> walk through the one-time step for each platform.</p>
+  </section>
+
+  <section class="plain import" id="import" style="padding-top:0">
+    <div>
+      <div class="eyebrow">Bring your own content</div>
+      <h2 style="margin-top:12px">Import your homebrew. Or a whole new game.</h2>
+      <p class="lede" style="margin-top:14px">Every system in Loresight is a content pack: one JSON file describing the game's structure and its entries. Import one and it's browsable, searchable and spottable like everything else. Export any installed system to share it or use it as a template.</p>
+      <div class="modes-list">
+        <div class="imode"><span class="pill">System pack</span><p><strong>A complete system.</strong> Structure and content together. Creates the system or updates it in place.</p></div>
+        <div class="imode"><span class="pill">Add to system</span><p><strong>More entries for a system you already have.</strong> Drop a homebrew pack next to the official one. Nothing gets wiped, and your additions layer on top.</p></div>
+        <div class="imode"><span class="pill">Bare system</span><p><strong>Structure only.</strong> Entity types and fields with no content yet, to scaffold a brand-new game before you fill it.</p></div>
+      </div>
+      <p class="skeleton-cap" style="margin-top:22px">Field values are stored and shown exactly as written. "8d6 fire" and "60 feet" are never parsed, so any game's text fits.</p>
+    </div>
+    <div>
+      <div class="shot"><img src="import.jpg" alt="Loresight Import / Export screen in dark mode: choose Bare system, System pack or Add to system, pick a file or paste JSON, validate, then export or remove the four installed systems and their content packs" width="1100" height="672"></div>
+      <div class="skeleton" aria-label="Minimal content pack JSON"><pre style="margin:0">{
+  <span class="k">"pack"</span>: { <span class="k">"name"</span>: "My Pack", <span class="k">"source"</span>: "homebrew", <span class="k">"author"</span>: "You" },
+  <span class="k">"system"</span>: { <span class="k">"key"</span>: "my-system", <span class="k">"name"</span>: "My System",
+              <span class="k">"resolution"</span>: { <span class="k">"type"</span>: "d20-check" } },
+  <span class="k">"entity_types"</span>: [ { <span class="k">"key"</span>: "widget", <span class="k">"name"</span>: "Widget", <span class="k">"plural_name"</span>: "Widgets",
+        <span class="k">"fields"</span>: [ { <span class="k">"key"</span>: "size", <span class="k">"type"</span>: "text", <span class="k">"searchable"</span>: true, <span class="k">"shown_in_list"</span>: true },
+                    { <span class="k">"key"</span>: "description", <span class="k">"type"</span>: "richtext", <span class="k">"shown_in_detail"</span>: true } ] } ],
+  <span class="k">"entities"</span>: [ { <span class="k">"type"</span>: "widget", <span class="k">"key"</span>: "sample-widget", <span class="k">"name"</span>: "Sample Widget",
+                  <span class="k">"data"</span>: { <span class="k">"size"</span>: "Medium", <span class="k">"description"</span>: "..." } } ]
+}</pre></div>
+      <p class="skeleton-cap">A minimal, valid pack. The fastest start is to export an installed system and edit that instead.</p>
+    </div>
+  </section>
+
+  <section class="plain" id="faq" style="padding-top:0">
+    <div class="eyebrow">FAQ</div>
+    <h2 style="margin-top:12px">Creating systems and content packs</h2>
+    <div class="faq">
+      <details open>
+        <summary>What is a content pack?</summary>
+        <p>A single JSON file bundling a complete game system: its structure (entity types and fields) and its content (entities). The app stores everything in a local SQLite database; the JSON pack is what you share. Export produces one, import reads it back.</p>
+      </details>
+      <details>
+        <summary>What's the fastest way to start authoring?</summary>
+        <p>Export an installed system from the Import/Export screen. Open the JSON, rename and edit the keys and values you want to change, then re-import it. You get a real, valid starting point and only need to understand the parts you're changing.</p>
+      </details>
+      <details>
+        <summary>What does the JSON look like?</summary>
+        <p>Four top-level keys: <code>pack</code> (metadata), <code>system</code> (the game definition), <code>entity_types</code> (the kinds of things in your system) and <code>entities</code> (the entries themselves). The skeleton above is a minimal valid example.</p>
+      </details>
+      <details>
+        <summary>How do I define a system?</summary>
+        <p>The <code>system</code> object needs <code>key</code> (a unique slug), <code>name</code> and <code>resolution</code>. Resolution is opaque: a required <code>type</code> string plus optional <code>summary</code> and <code>params</code>. The app never interprets it. Optional keys: <code>edition</code>, <code>version</code>, <code>licence_note</code>.</p>
+      </details>
+      <details>
+        <summary>How do entity types and fields work?</summary>
+        <p>Each entity type needs <code>key</code>, <code>name</code>, <code>plural_name</code> and <code>fields</code>. Each field needs <code>key</code> and <code>type</code>, one of text, int, richtext, bool or list. Flags control display and behaviour: <code>label</code>, <code>searchable</code>, <code>filterable</code>, <code>shown_in_list</code>, <code>shown_in_detail</code> and <code>trigger</code>.</p>
+        <p>Set a label on any field whose key isn't already readable, or "casting_time" shows up as CASTING_TIME. Fields with no value are skipped, so optional fields never leave an empty heading.</p>
+      </details>
+      <details>
+        <summary>How do entities and their values work?</summary>
+        <p>Each entity needs <code>type</code> (matching an entity-type key), <code>key</code> (unique within that type) and <code>name</code>. Optional <code>aliases</code> and <code>data</code>. Data is a free-form record keyed by field. Values are stored and displayed verbatim: "8d6 fire" stays "8d6 fire".</p>
+      </details>
+      <details>
+        <summary>How does live name-spotting work?</summary>
+        <p>In GM Assistant mode the app listens for entity names. A field contributes to spotting when it has <code>trigger: true</code>. An entity type can also set <code>trigger_config</code> with <code>min_length</code>, <code>phonetic</code> and <code>alias_fields</code>, and any entity can carry an <code>aliases</code> array of short names the spotter recognises alongside the main one.</p>
+      </details>
+      <details>
+        <summary>What are the source and author fields for?</summary>
+        <p><code>pack.source</code> is one of official, third-party or homebrew. For third-party and homebrew packs <code>pack.author</code> is required so attribution travels with the pack. Only redistribute content you have the right to share.</p>
+      </details>
+      <details>
+        <summary>Can I remove a system or pack again?</summary>
+        <p>Yes. The Import/Export screen lists every installed system and pack with Export and Remove buttons. Removing a homebrew pack leaves the official pack it sat beside untouched.</p>
+      </details>
+      <details>
+        <summary>Does any of this need the internet?</summary>
+        <p>No. Import, export, search and listening all run on the device. The app works with networking switched off.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <span>Loresight is proprietary software by <a href="https://github.com/furan917">Furan917</a>. It is free and will never be for sale. If anyone asks you to pay for it, it is not Loresight. The only official downloads are Google Play and the GitHub releases linked here. Shipped content is limited to what each publisher's licence permits.</span>
+    <span><a href="https://github.com/furan917/Loresight-releases/issues">Questions and bug reports</a> · <a href="https://github.com/furan917/Loresight-releases">Releases on GitHub</a></span>
+  </footer>
+</div>
+
+</body>
+</html>
