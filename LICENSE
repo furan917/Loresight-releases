@@ -2,13 +2,34 @@ Loresight Proprietary License
 Copyright (c) 2026 Francis Gallagher. All rights reserved.
 
 The Loresight application and the installers distributed in this repository are
-proprietary software. You may download and install an official build for your own
-personal use.
+proprietary software. You may download and install an official build and use it
+to prepare for, run, and play tabletop games. This permission covers:
+
+- personal and private use;
+- use at conventions, clubs, game stores, schools, and other in-person events;
+- use while running games for other people, whether or not you are paid to
+  run them;
+- use in streams, videos, podcasts, actual-play shows, and other content you
+  produce, whether or not that content is monetised through advertising,
+  subscriptions, sponsorships, tips, or similar means.
+
+Loresight is licensed to you as a tool. It may not itself be the thing you sell.
+Without the prior written permission of the copyright holder, you may not:
+
+- sell, rent, or charge for access to the software;
+- bundle the software with, or integrate it into, another product or service;
+- offer the software or its functionality to others as a hosted, managed, or
+  white-labelled service;
+- use the software to build, train, or benchmark a competing product.
 
 You may not copy, modify, redistribute, sublicense, reverse-engineer, or create
 derivative works of the software, in whole or in part, without the prior written
 permission of the copyright holder. No source code is provided, and no rights are
-granted beyond personal use of an official build.
+granted beyond those stated above.
+
+This licence covers the software only. The rules content shipped with Loresight
+is provided under each publisher's own licence, which governs how that content
+may be used, shown, or reproduced.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
 IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
