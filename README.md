@@ -26,14 +26,16 @@ This repository exists to distribute builds and host the website. There is no so
 
 ## What's inside
 
-Four systems ship on day one, each limited to what its licence allows:
+Six systems ship, each limited to what its licence allows:
 
 | System | Edition | Entries |
 |---|---|---|
-| Dungeons & Dragons 5e | SRD 5.1 | 1,193 |
-| Dungeons & Dragons 5e (2024) | SRD 5.2 | 990 |
-| Pathfinder 2e | Remaster (ORC) | 6,089 |
-| Daggerheart | SRD 1.0 | 535 |
+| Dungeons & Dragons 5e | SRD 5.1 | 1,362 |
+| Dungeons & Dragons 5e (2024) | SRD 5.2 | 1,215 |
+| Pathfinder 2e | Remaster (ORC) | 6,590 |
+| Starfinder 2e | Second Edition (ORC) | 3,786 |
+| Daggerheart | SRD 1.0 | 634 |
+| Tales of the Valiant | Black Flag Reference Document (ORC) | 1,428 |
 
 These are a base, not the whole game. You won't find everything for a system here, to stay clear of copyright.
 
