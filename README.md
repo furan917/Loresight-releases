@@ -26,7 +26,7 @@ This repository exists to distribute builds and host the website. There is no so
 
 ## What's inside
 
-Six systems ship, each limited to what its licence allows:
+Seven systems ship, each limited to what its licence allows:
 
 | System | Edition | Entries |
 |---|---|---|
@@ -36,6 +36,7 @@ Six systems ship, each limited to what its licence allows:
 | Starfinder 2e | Second Edition (ORC) | 3,786 |
 | Daggerheart | SRD 1.0 | 634 |
 | Tales of the Valiant | Black Flag Reference Document (ORC) | 1,428 |
+| Draw Steel | Heroes, Monsters, Beastheart, Summoner (Creator License) | 3,067 |
 
 These are a base, not the whole game. You won't find everything for a system here, to stay clear of copyright.
 
@@ -98,3 +99,5 @@ Loresight works with networking switched off. Speech recognition runs on the dev
 ---
 
 Loresight is proprietary software by [Furan917](https://github.com/furan917). See [LICENSE](LICENSE).
+
+Game content is used under each publisher's licence; full notices are in the app under About & licences. The Loresight Draw Steel content pack is an independent product published under the DRAW STEEL Creator License and is not affiliated with MCDM Productions, LLC. DRAW STEEL © 2026 MCDM Productions, LLC.
